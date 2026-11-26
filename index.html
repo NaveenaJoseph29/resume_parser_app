@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resume Parser | Match your resume to a job description</title>
+
+  <!-- Tailwind CSS (Play CDN: no build step needed for learning) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- PDF text extraction -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <!-- Word (.docx) text extraction -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+</head>
+<body class="min-h-screen bg-slate-950 text-slate-100 font-sans">
+  <main class="mx-auto max-w-6xl px-4 py-10">
+
+    <!-- Header -->
+    <header class="mb-10 text-center">
+      <p class="text-sm font-semibold uppercase tracking-widest text-indigo-400">Resume Parser</p>
+      <h1 class="mt-2 text-3xl font-bold sm:text-4xl">See how your resume matches a job</h1>
+      <p class="mx-auto mt-3 max-w-2xl text-slate-400">
+        Drop your resume (PDF, DOCX or TXT), paste the job description, and get a scorecard
+        showing what matches, what is missing, and where you are strong or weak.
+      </p>
+    </header>
+
+    <form id="match-form" class="grid gap-6 lg:grid-cols-2">
+
+      <!-- Resume drop zone -->
+      <section class="flex flex-col rounded-2xl border border-slate-800 bg-slate-900 p-6">
+        <h2 class="text-lg font-semibold">1. Your resume</h2>
+
+        <label
+          id="drop-zone"
+          for="resume-input"
+          class="mt-4 flex min-h-[220px] cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-slate-700 bg-slate-950/60 p-6 text-center transition hover:border-indigo-500"
+        >
+          <svg class="h-12 w-12 text-slate-500" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 16V4m0 0l-4 4m4-4l4 4M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2" />
+          </svg>
+          <p class="mt-4 font-medium">Drag and drop your resume here</p>
+          <p class="mt-1 text-sm text-slate-500">or click to choose a file (.pdf, .docx, .txt)</p>
+          <p id="file-name" class="mt-4 hidden rounded-full bg-indigo-500/10 px-4 py-1 text-sm text-indigo-300"></p>
+        </label>
+        <input id="resume-input" type="file" accept=".pdf,.docx,.txt" class="sr-only" />
+        <p id="resume-error" class="mt-3 hidden text-sm text-rose-400"></p>
+      </section>
+
+      <!-- Job description -->
+      <section class="flex flex-col rounded-2xl border border-slate-800 bg-slate-900 p-6">
+        <h2 class="text-lg font-semibold">2. Job description</h2>
+        <textarea
+          id="jd-input"
+          placeholder="Paste the full job description here..."
+          class="mt-4 min-h-[220px] flex-1 resize-y rounded-xl border border-slate-700 bg-slate-950/60 p-4 text-sm text-slate-100 placeholder-slate-600 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/30"
+        ></textarea>
+      </section>
+
+      <div class="lg:col-span-2 flex justify-center">
+        <button
+          id="analyze-btn"
+          type="submit"
+          class="rounded-xl bg-indigo-500 px-8 py-3 font-semibold text-white shadow-lg shadow-indigo-500/20 transition hover:bg-indigo-400 disabled:cursor-not-allowed disabled:opacity-50"
+          disabled
+        >
+          Analyze match
+        </button>
+      </div>
+    </form>
+
+    <p id="status" class="mt-4 hidden text-center text-sm text-slate-400"></p>
+
+    <!-- Scorecard -->
+    <section id="scorecard" class="mt-12 hidden">
+      <div id="overall" class="rounded-2xl border border-slate-800 bg-slate-900 p-6"></div>
+      <div id="breakdown" class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-5"></div>
+      <div class="mt-6 grid gap-6 lg:grid-cols-2">
+        <div id="matched" class="rounded-2xl border border-slate-800 bg-slate-900 p-6"></div>
+        <div id="missing" class="rounded-2xl border border-slate-800 bg-slate-900 p-6"></div>
+        <div id="strengths" class="rounded-2xl border border-slate-800 bg-slate-900 p-6"></div>
+        <div id="weaknesses" class="rounded-2xl border border-slate-800 bg-slate-900 p-6"></div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Tell pdf.js where its worker file lives (it parses PDFs in a background thread).
+    if (window.pdfjsLib) {
+      pdfjsLib.GlobalWorkerOptions.workerSrc =
+        "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+    }
+  </script>
+  <script src="app.js" defer></script>
+</body>
+</html>
