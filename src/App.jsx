@@ -4,6 +4,7 @@ import { useAnalysis } from "./hooks/useAnalysis.js";
 import FileDropZone from "./components/FileDropZone.jsx";
 import JobDescriptionInput from "./components/JobDescriptionInput.jsx";
 import Scorecard from "./components/Scorecard.jsx";
+import ThemeToggle from "./components/ThemeToggle.jsx";
 
 // The page: the header, the two inputs, the button, and the scorecard once there is one.
 export default function App() {
@@ -21,9 +22,10 @@ export default function App() {
   return (
     <main className="mx-auto max-w-6xl px-4 py-10">
       <header className="mb-10 text-center">
-        <p className="text-sm font-semibold uppercase tracking-widest text-indigo-400">Resume Parser</p>
+        <div className="flex justify-end"><ThemeToggle /></div>
+        <p className="mt-6 text-sm font-semibold uppercase tracking-widest text-accent">Resume Parser</p>
         <h1 className="mt-2 text-3xl font-bold sm:text-4xl">See how your resume matches a job</h1>
-        <p className="mx-auto mt-3 max-w-2xl text-slate-400">
+        <p className="mx-auto mt-3 max-w-2xl text-muted">
           Drop your resume (PDF, DOCX or TXT), paste the job description, and get a scorecard
           showing what matches, what is missing, and where you are strong or weak.
         </p>
@@ -37,7 +39,7 @@ export default function App() {
           <button
             type="submit"
             disabled={!canAnalyze}
-            className="rounded-xl bg-indigo-500 px-8 py-3 font-semibold text-white shadow-lg shadow-indigo-500/20 transition hover:bg-indigo-400 disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded-xl bg-accent px-8 py-3 font-semibold text-on-accent shadow-lg shadow-accent/20 transition hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-50"
           >
             Analyze match
           </button>
@@ -45,7 +47,7 @@ export default function App() {
       </form>
 
       {resume.isReading && (
-        <p className="mt-4 text-center text-sm text-slate-400">Reading your resume...</p>
+        <p className="mt-4 text-center text-sm text-muted">Reading your resume...</p>
       )}
 
       {result && <Scorecard result={result} />}

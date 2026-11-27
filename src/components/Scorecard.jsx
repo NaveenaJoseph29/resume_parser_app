@@ -25,11 +25,11 @@ export default function Scorecard({ result }) {
 
       <div className="mt-6 grid gap-6 lg:grid-cols-2">
         <SectionCard title="What matches">
-          <Chips items={result.matched} className="bg-emerald-500/10 text-emerald-300" emptyText="None found." />
+          <Chips items={result.matched} className="bg-good/10 text-good" emptyText="None found." />
         </SectionCard>
 
         <SectionCard title="What is missing">
-          <Chips items={result.missing} className="bg-rose-500/10 text-rose-300" emptyText="None found." />
+          <Chips items={result.missing} className="bg-bad/10 text-bad" emptyText="None found." />
         </SectionCard>
 
         <SectionCard title="Strengths">
@@ -39,7 +39,7 @@ export default function Scorecard({ result }) {
         <SectionCard title="Weaknesses">
           <BulletList items={result.weaknesses} emptyText="No major weaknesses found." />
           {result.extraSkills.length > 0 && (
-            <p className="mt-4 text-sm text-slate-400">
+            <p className="mt-4 text-sm text-muted">
               Extra skills on your resume not in this job: {result.extraSkills.join(", ")}.
             </p>
           )}

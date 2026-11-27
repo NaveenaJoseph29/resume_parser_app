@@ -7,8 +7,76 @@
 
     <!-- Tailwind CSS (Play CDN: no build step needed for learning) -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Theme palette: each colour is a CSS variable, so switching theme only swaps the values below.
+         Values are "R G B" triplets so Tailwind's opacity modifiers (bg-accent/10) still work. -->
+    <style>
+      :root {
+        --page: 250 243 230;
+        --surface: 255 250 240;
+        --line: 230 220 203;
+        --line-strong: 196 182 156;
+        --track: 236 228 212;
+        --ink: 24 20 14;
+        --muted: 104 95 80;
+        --faint: 158 148 130;
+        --accent: 217 105 26;
+        --accent-hover: 189 88 18;
+        --on-accent: 255 255 255;
+        --good: 22 128 67;
+        --warn: 166 101 0;
+        --bad: 196 38 38;
+      }
+      .dark {
+        --page: 10 10 10;
+        --surface: 22 22 22;
+        --line: 42 42 42;
+        --line-strong: 72 72 72;
+        --track: 38 38 38;
+        --ink: 245 236 217;
+        --muted: 163 155 138;
+        --faint: 96 90 80;
+        --accent: 240 138 36;
+        --accent-hover: 252 164 80;
+        --on-accent: 10 10 10;
+        --good: 74 222 128;
+        --warn: 251 191 36;
+        --bad: 248 113 113;
+      }
+    </style>
+    <script>
+      // Apply the saved theme before the page paints, so there is no flash of the wrong one.
+      document.documentElement.classList.toggle(
+        "dark",
+        (localStorage.getItem("theme") || "dark") === "dark"
+      );
+    </script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              page: "rgb(var(--page) / <alpha-value>)",
+              surface: "rgb(var(--surface) / <alpha-value>)",
+              line: "rgb(var(--line) / <alpha-value>)",
+              "line-strong": "rgb(var(--line-strong) / <alpha-value>)",
+              track: "rgb(var(--track) / <alpha-value>)",
+              ink: "rgb(var(--ink) / <alpha-value>)",
+              muted: "rgb(var(--muted) / <alpha-value>)",
+              faint: "rgb(var(--faint) / <alpha-value>)",
+              accent: "rgb(var(--accent) / <alpha-value>)",
+              "accent-hover": "rgb(var(--accent-hover) / <alpha-value>)",
+              "on-accent": "rgb(var(--on-accent) / <alpha-value>)",
+              good: "rgb(var(--good) / <alpha-value>)",
+              warn: "rgb(var(--warn) / <alpha-value>)",
+              bad: "rgb(var(--bad) / <alpha-value>)",
+            },
+          },
+        },
+      };
+    </script>
   </head>
-  <body class="min-h-screen bg-slate-950 text-slate-100 font-sans">
+  <body class="min-h-screen bg-page text-ink font-sans transition-colors">
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
