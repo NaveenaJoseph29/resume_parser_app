@@ -9,7 +9,7 @@ import ThemeToggle from "./components/ThemeToggle.jsx";
 // The page: the header, the two inputs, the button, and the scorecard once there is one.
 export default function App() {
   const resume = useResumeFile();
-  const { result, run } = useAnalysis();
+  const { result, isAnalyzing, error, run } = useAnalysis();
   const [jobDescription, setJobDescription] = useState("");
 
   const canAnalyze = Boolean(resume.text.trim() && jobDescription.trim());
