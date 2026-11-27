@@ -4,11 +4,11 @@ import { tone } from "../lib/tone.js";
 function ScoreTile({ label, score }) {
   const t = tone(score);
   return (
-    <div className="rounded-xl border border-line bg-surface p-4">
+    <div className="border-t border-line pt-4">
       <p className="text-sm text-muted">{label}</p>
-      <p className={`mt-1 text-2xl font-bold ${t.text}`}>{score}</p>
-      <div className="mt-3 h-2 rounded-full bg-track">
-        <div className={`h-2 rounded-full ${t.bar}`} style={{ width: `${score}%` }} />
+      <p className={`mt-1 font-display text-5xl leading-none ${t.text}`}>{score}</p>
+      <div className="mt-3 h-1 bg-track">
+        <div className={`h-1 ${t.bar}`} style={{ width: `${score}%` }} />
       </div>
     </div>
   );

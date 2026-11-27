@@ -6,42 +6,65 @@
     <title>Resume Parser | Match your resume to a job description</title>
 
     <!-- Tailwind CSS (Play CDN: no build step needed for learning) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Theme palette: each colour is a CSS variable, so switching theme only swaps the values below.
          Values are "R G B" triplets so Tailwind's opacity modifiers (bg-accent/10) still work. -->
     <style>
       :root {
-        --page: 250 243 230;
-        --surface: 255 250 240;
-        --line: 230 220 203;
-        --line-strong: 196 182 156;
-        --track: 236 228 212;
-        --ink: 24 20 14;
-        --muted: 104 95 80;
-        --faint: 158 148 130;
-        --accent: 217 105 26;
-        --accent-hover: 189 88 18;
-        --on-accent: 255 255 255;
-        --good: 22 128 67;
-        --warn: 166 101 0;
-        --bad: 196 38 38;
+        --page: 243 235 220;
+        --surface: 250 245 234;
+        --line: 207 194 168;
+        --line-strong: 140 129 112;
+        --track: 230 220 200;
+        --ink: 15 14 12;
+        --muted: 92 86 73;
+        --faint: 138 130 115;
+        --accent: 196 69 15;
+        --accent-hover: 163 53 8;
+        --on-accent: 250 245 234;
+        --good: 46 107 46;
+        --warn: 150 96 0;
+        --bad: 166 30 30;
       }
       .dark {
-        --page: 10 10 10;
-        --surface: 22 22 22;
-        --line: 42 42 42;
-        --line-strong: 72 72 72;
-        --track: 38 38 38;
+        --page: 15 14 12;
+        --surface: 23 21 18;
+        --line: 46 42 36;
+        --line-strong: 90 83 71;
+        --track: 42 38 32;
         --ink: 245 236 217;
-        --muted: 163 155 138;
-        --faint: 96 90 80;
-        --accent: 240 138 36;
-        --accent-hover: 252 164 80;
-        --on-accent: 10 10 10;
-        --good: 74 222 128;
-        --warn: 251 191 36;
-        --bad: 248 113 113;
+        --muted: 181 172 152;
+        --faint: 125 118 102;
+        --accent: 255 122 46;
+        --accent-hover: 255 154 92;
+        --on-accent: 15 14 12;
+        --good: 125 201 120;
+        --warn: 230 180 70;
+        --bad: 240 110 100;
+      }
+      /* Highlighter stroke for matched terms, and a dashed underline for missing ones.
+         The stroke sweeps in once when results arrive; reduced-motion users get it at once. */
+      .hl {
+        background-image: linear-gradient(rgb(var(--accent) / 0.35), rgb(var(--accent) / 0.35));
+        background-repeat: no-repeat;
+        background-position: 0 85%;
+        background-size: 100% 42%;
+        animation: hl-sweep 700ms ease-out both;
+      }
+      @keyframes hl-sweep {
+        from { background-size: 0% 42%; }
+      }
+      .miss {
+        text-decoration: underline dashed rgb(var(--bad));
+        text-decoration-thickness: 2px;
+        text-underline-offset: 4px;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .hl { animation: none; }
       }
     </style>
     <script>
@@ -55,6 +78,10 @@
       tailwind.config = {
         theme: {
           extend: {
+            fontFamily: {
+              display: ['"Instrument Serif"', "Georgia", "serif"],
+              sans: ['"Hanken Grotesk"', "system-ui", "sans-serif"],
+            },
             colors: {
               page: "rgb(var(--page) / <alpha-value>)",
               surface: "rgb(var(--surface) / <alpha-value>)",

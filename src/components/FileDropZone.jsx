@@ -5,13 +5,13 @@ export default function FileDropZone({ fileName, error, onFile }) {
   const { isDragging, handlers } = useDropZone(onFile);
 
   return (
-    <section className="flex flex-col rounded-2xl border border-line bg-surface p-6">
-      <h2 className="text-lg font-semibold">1. Your resume</h2>
+    <section className="flex flex-col border-t border-line pt-5">
+      <h2 className="font-display text-3xl">1. Your resume</h2>
 
       <label
         htmlFor="resume-input"
         {...handlers}
-        className={`mt-4 flex min-h-[220px] cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed bg-page/60 p-6 text-center transition hover:border-accent ${
+        className={`mt-4 flex min-h-[220px] cursor-pointer flex-col items-center justify-center border-2 border-dashed bg-page/60 p-6 text-center transition hover:border-accent ${
           isDragging ? "border-accent bg-accent/5" : "border-line-strong"
         }`}
       >
@@ -21,7 +21,7 @@ export default function FileDropZone({ fileName, error, onFile }) {
         <p className="mt-4 font-medium">Drag and drop your resume here</p>
         <p className="mt-1 text-sm text-muted">or click to choose a file (.pdf, .docx, .txt)</p>
         {fileName && (
-          <p className="mt-4 rounded-full bg-accent/10 px-4 py-1 text-sm text-accent">{fileName}</p>
+          <p className="mt-4 bg-accent/10 px-3 py-1 text-sm text-accent">{fileName}</p>
         )}
       </label>
 

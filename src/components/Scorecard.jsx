@@ -25,11 +25,11 @@ export default function Scorecard({ result }) {
 
       <div className="mt-6 grid gap-6 lg:grid-cols-2">
         <SectionCard title="What matches">
-          <Chips items={result.matched} className="bg-good/10 text-good" emptyText="None found." />
+          <Chips items={result.matched} className="hl text-ink" emptyText="None found." />
         </SectionCard>
 
         <SectionCard title="What is missing">
-          <Chips items={result.missing} className="bg-bad/10 text-bad" emptyText="None found." />
+          <Chips items={result.missing} className="miss text-ink" emptyText="None found." />
         </SectionCard>
 
         <SectionCard title="Strengths">

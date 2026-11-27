@@ -21,11 +21,11 @@ export default function App() {
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-10">
-      <header className="mb-10 text-center">
-        <div className="flex justify-end"><ThemeToggle /></div>
-        <p className="mt-6 text-sm font-semibold uppercase tracking-widest text-accent">Resume Parser</p>
-        <h1 className="mt-2 text-3xl font-bold sm:text-4xl">See how your resume matches a job</h1>
-        <p className="mx-auto mt-3 max-w-2xl text-muted">
+      <header className="mb-12">
+        <div className="flex items-center justify-between"><span className="font-display text-2xl">Resume Parser</span><ThemeToggle /></div>
+        
+        <h1 className="mt-16 font-display text-5xl leading-[1.02] sm:text-7xl">See how your resume matches a job</h1>
+        <p className="mt-5 max-w-xl text-muted">
           Drop your resume (PDF, DOCX or TXT), paste the job description, and get a scorecard
           showing what matches, what is missing, and where you are strong or weak.
         </p>
@@ -39,7 +39,7 @@ export default function App() {
           <button
             type="submit"
             disabled={!canAnalyze}
-            className="rounded-xl bg-accent px-8 py-3 font-semibold text-on-accent shadow-lg shadow-accent/20 transition hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-50"
+            className="bg-accent px-8 py-3 font-semibold text-on-accent transition hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-50"
           >
             Analyze match
           </button>
